@@ -1,0 +1,24 @@
+<h2 class="center-list orange">Mon espace privé</h2>
+
+<div class="row">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="small-4 small-offset-1 columns center-list"><%= f.label "Identifiant (email)" %><br />
+  <%= f.email_field :email, autofocus: true %></div>
+
+  <div class="small-4 small-offset-2 end columns center-list"><%= f.label "Mot de passe" %><br />
+    <%= f.password_field :password, autocomplete: "off" %></div>
+  </div>
+
+  <div class='row'>
+  	<div class="small-4 small-centered columns">
+  		<h5>JE ME CONNECTE</h5>
+  	</div>
+  </div>
+  <div class='row'>
+  	<div class="small-3 small-centered columns">
+  		  <%= image_submit_tag("round-button.png", class: 'round-button') %></p>
+  	</div>
+  </div>
+<% end %>
+
+<%= render "User/shared/links" %>

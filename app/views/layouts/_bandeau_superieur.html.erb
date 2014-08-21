@@ -1,0 +1,153 @@
+<nav class="top-bar show-for-small-only" data-topbar>
+ <ul class="title-area"> 
+ 	<li><%= link_to root_path do %><%= image_tag 'picto_home.png' %><% end %></li>
+ 	<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li> 
+ </ul>
+ 	<section class="top-bar-section"> 
+ 	 <ul class="left"> 
+		<% unless @main_menu_items.nil? %>
+			<% @main_menu_items.each do |t| %>
+				<% if t.etablissement == true %>
+					<li class="title main"><%= link_to t.name.upcase, places_path %></li>
+				<% elsif t.articles.count == 0 %>
+				 	<li class="title main"><%= t.name.upcase %></li>
+				<% elsif t.articles.count == 1 %>
+				 	<li class="title main"><%= link_to t.name.upcase, article_path(t.articles.first.id) %></li>
+				<% else %>					 					 			 	
+				 	<li class="title main has-dropdown">
+				 		<a href="#"><%= t.name.upcase %></a>
+			 			<ul class="dropdown"> 
+				 			<% t.articles.each do |a| %>
+				 				<li><%= link_to a.name, article_path(a) %></li>
+				 			<% end %>
+			 			</ul> 
+				 	</li>						
+				<% end %>
+ 			<% end %>
+		<% end %>
+		
+		<li class="has_form">
+
+			<div class="row collapse">
+
+				<div class="small-9 columns">
+					<%= search_form_for @q do |a| %>
+					<%= a.text_field :content_cont, :placeholder => "Recherche" %>
+				</div>
+
+				<div class="small-3 columns">
+					
+						<%= a.button "OK", class: "search_button postfix"%>
+						<% end %>	
+					
+				</div>	    						    		
+			</div>
+		</li>	
+ 	 </ul> 
+ 	</section> 
+</nav>
+
+<div class="row show-for-small-only">
+	<div class="small-12 column"><%= link_to root_path do %><%= image_tag 'logo-capdevant.png' %><% end %>
+	</div>
+</div>
+
+<div class="row show-for-small-only">
+	<div class="large-5 column"><h2 class="baseline"><span class="quote">"</span><%= @baseline.baseline %><span class="quote">"</span></h2></div>
+</div>
+
+<div class="row show-for-medium-up">
+	<div class="large-4 column info"><%= link_to root_path do %><%= image_tag 'logo-capdevant.png'%><span>Retour à l'accueil</span><% end %></div>
+	<div class="large-5 column baseline"><span class="quote">"</span><%= @baseline.baseline.html_safe %><span class="quote">"</span></div>
+	<div class="large-3 column"><%= render 'layouts/resize_font' %>
+		<% if !user_signed_in? %>
+			<a href="#" data-reveal-id="connexion" class="mon-espace button">Mon espace privé</a>
+		<% else %>
+			<%= link_to "Mon espace privé", documents_path, class:"mon-espace button" %>
+		<% end %>
+	</div>
+</div>
+
+<nav class="top-bar show-for-medium-up" data-topbar>
+	<section class="top-bar-section"> 
+	<hr>
+	<div id="main_menu">
+		<ul class="inline-list">
+			<li class="title main" style="margin-bottom: 2px"><%= link_to root_path do %><%= image_tag 'picto_home.png' %><% end %></li>
+			
+			<% unless @main_menu_items.nil? %>
+				<% @main_menu_items.each do |t| %>
+				 <% if t.etablissement == true %>
+					<li class="title main"><%= link_to t.name.upcase, places_path, class:"cursor" %></li>
+				 <% elsif t.articles.count == 0 %>
+				 	<li class="title main"><%= t.name.upcase %></li>
+				 <% elsif t.articles.count == 1 %>
+				 	<li class="title main"><%= link_to t.name.upcase, article_path(t.articles.first.id), class:"cursor" %></li>
+				 <% else %>
+				 					 			 	
+				 	<li class="title main has-dropdown">
+				 		<a href="#" class="cursor"><%= t.name.upcase %></a>
+			 			<ul class="dropdown"> 
+				 			<% t.articles.each do |a| %>
+				 				<li <%= "class=active_dropdown" if a.slug == @id_article %>><%= link_to "> " + a.name, article_path(a) %></li>
+				 			<% end %>
+			 			</ul> 
+				 	</li>
+					
+				 <% end %>
+	 			<% end %>
+			<% end %>
+
+			<li class="has_form right">
+
+				<div class="row collapse">
+
+					<div class="large-10 columns">
+						<%= search_form_for @q do |a| %>
+						<%= a.text_field :content_cont %>
+					</div>
+
+					<div class="large-2 end columns">
+						
+							<%= a.button "OK", class: "search_button postfix"%>
+							<% end %>	
+						
+					</div>	    						    		
+				</div>
+
+			</li>
+
+		</ul>
+		<hr>
+	</div>
+	</section>
+</nav>
+
+<div id="connexion" class="reveal-modal" data-reveal>
+  <h2 class="center-list orange">Mon espace privé</h2>
+
+  <div class="row">
+	  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+	  <div class="small-4 small-offset-1 columns center-list"><%= f.label "Identifiant (email)" %><br />
+	  <%= f.email_field :email, autofocus: true %></div>
+
+	  <div class="small-4 small-offset-2 end columns center-list"><%= f.label "Mot de passe" %><br />
+	    <%= f.password_field :password, autocomplete: "off" %></div>
+	  </div>
+
+	  <div class='row'>
+	  	<div class="small-4 small-centered columns">
+	  		<h5>JE ME CONNECTE</h5>
+	  	</div>
+	  </div>
+	  <div class='row'>
+	  	<div class="small-3 small-centered columns">
+	  		  <%= image_submit_tag("round-button.png", class: 'round-button') %></p>
+	  	</div>
+	  </div>
+	<% end %>
+
+	<%= render "User/shared/links" %>
+
+  	<a class="close-reveal-modal">&#215;</a>
+</div>

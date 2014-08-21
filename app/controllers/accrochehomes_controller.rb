@@ -1,0 +1,2 @@
+class AccrocheHomesController < ApplicationController
+end

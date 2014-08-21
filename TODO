@@ -1,0 +1,4 @@
+TODO
+
+User.first.role.categories.first.documents
+Document.first.category.roles.first.users

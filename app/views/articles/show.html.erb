@@ -1,0 +1,65 @@
+<div class="format_news">
+	<% if @article.template == "Blog" %>
+
+	<% if @article.news != true && @article.item_menus.last.articles.count > 1 %>
+		<div class="row">
+			<div class="small-12 large-12 columns">
+				<div class="submenu center-list sub-nav">
+					<ul class="inline-list">
+						<% @article.item_menus.last.articles.each do |a| %>
+							<li <%= "class=active" unless a.id != @article.id %>><%= link_to a.name, article_path(a) %></li>
+						<% end %>
+					</ul>
+				</div>
+			</div>
+		</div>	
+	<% end %>
+
+	<div class="row">
+		<div class="small-12 large-12 columns">
+			<div class="synopsis">
+				<%= @article.synopsis %>
+			</div>
+		</div>
+	</div>	
+
+	<div class="row">
+		<div class="small-12 large-12 columns imageblog"><%= image_tag @article.image.url(:image_blog) %></div>
+	</div>
+	<div class="row">
+		<div class="small-12 large-12 columns body-article">
+<!-- 			<h1 class="title-article"><%# @article.name %></h1></br>
+ -->			<p class="marge-top-article"><%= @article.content.html_safe %></p>
+		</div>
+	</div>
+
+	<% elsif @article.template == "Journalistique"%>
+
+	<% if @article.news != true && @article.item_menus.last.articles.count > 1 %>
+		<div class="row">
+			<div class="small-12 large-12 columns submenu">
+				<ul class="inline-list">
+					<% @article.item_menus.last.articles.each do |a| %>
+						<li><%= link_to a.name, article_path(a) %></li>
+					<% end %>
+				</ul>	
+			</div>
+		</div>	
+	<% end %>
+
+	<div class="row">
+		<div class="small-12 large-12 columns synopsis">
+			<%= @article.synopsis %>
+		</div>
+	</div>
+
+	<div class="row">
+			<div class="small-8 large-8 column body-article">
+				<p class="marge-top-article"><%= @article.content.html_safe %></p></div>
+			<div class ="small-4 large-4 column imagejour">
+				<%= image_tag @article.image.url(:image_journalistique) %>
+			</div>
+	</div>
+
+	<%end%>
+</div>

@@ -1,0 +1,52 @@
+<div id="map"></div>
+<%= render "map_script" %>
+<div class="row">
+
+	<div class="large-6 column  show-for-medium-up">
+		<% @places.each_index do |p| %>
+			<% if p % 2 == 0 %> 
+				<%= link_to @places[p] do %>
+					<div class="fiche_place">
+						<strong><%= @places[p].name %></strong></br>
+						<%= @places[p].street %><br>
+						<%= @places[p].zip_code %> 
+						<%= @places[p].city %><br>
+						<%= @places[p].tel %><br>
+						<%= @places[p].email %>
+					</div>
+				<% end %>	
+			<% end %>
+		<% end %>
+	</div>
+
+	<div class="large-6 column">
+		<% @places.each_index do |p| %>
+			<% if p % 2 == 1 %>
+				<%= link_to @places[p] do %>
+					<div class="fiche_place">
+						<strong><%= @places[p].name %></strong></br>
+						<%= @places[p].street %><br>
+						<%= @places[p].zip_code %> 
+						<%= @places[p].city %><br>
+						<%= @places[p].tel %><br>
+						<%= @places[p].email %>
+					</div>
+				<% end %>	
+			<% end %>
+		<% end %>
+	</div>
+
+	<div class="small-12 column show-for-small-only">
+		<% @places.each_index do |p| %>
+			<div class="fiche_place">
+				<strong><%= @places[p].name %></strong></br>
+				<%= @places[p].street %><br>
+				<%= @places[p].zip_code %> 
+				<%= @places[p].city %><br>
+				<%= @places[p].tel %><br>
+				<%= @places[p].email %>
+			</div>
+		<% end %>
+	</div>
+
+</div>

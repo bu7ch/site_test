@@ -1,0 +1,37 @@
+<div class="format_news index_news">
+
+	<div class="row">
+		<div class="small-6 large-6 columns"><h1 class="resultat">Mon espace</h1></div>
+		<div class="small-6 large-6 columns"><h3 class="right"> <%= @documents.count %> documents disponibles</h3></div>
+	</div>
+
+	<% if @cat.count != 0 %>
+		
+		<% @cat.each do |c|%>
+			
+			<h3><%= c.category %></h3>
+			<% c.documents.each do |d| %>
+				<div class="row">
+					<div class="small-12 large-12 columns">
+						<%= link_to d.pdf_file_name, asset_path(d.pdf) %>
+					</div>
+				</div>
+			<% end %>
+		 <% end %>
+
+	<% else %>
+
+		<div class="row">
+			<div class="small-12 large-12 columns">
+				<p>Aucun document accessible.</p>
+			</div>
+		</div>
+		 
+	<% end %>
+
+	<div class="small-4 small-centered large-4 large-centered columns">
+		<%= link_to("Déconnexion" ,destroy_user_session_path, method: :delete, class:" mon-espace button") %>
+	</div>
+
+</div>
+

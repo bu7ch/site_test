@@ -1,0 +1,22 @@
+<script>
+	var map = L.map('map',{center: [48.5, 2.2], zoom:8, minZoom: 8, maxZoom: 14});
+
+	var greenIcon = L.icon({
+    iconUrl: 'marker-icon.png',
+    shadowUrl: 'marker-shadow.png'
+    });
+
+	<% @places.each_with_index do |place, index| %>
+		<%= "var marker_#{index} = L.marker([#{place.latitude}, #{place.longitude}], {icon: greenIcon}).addTo(map);" %>
+		<%= raw "marker_#{index}.bindPopup('#{link_to place.name, place_path(place.id)}');" %>
+  	<% end %>
+
+	L.tileLayer('http://{s}.tiles.mapbox.com/v3/lxbarth.map-rwqkcrxq/{z}/{x}/{y}.png', {
+	    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+	    maxZoom: 18
+	}).addTo(map);
+
+	
+
+
+</script>

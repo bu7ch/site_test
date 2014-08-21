@@ -1,0 +1,13 @@
+<div id="diapo">
+<ul data-orbit >
+	<% @slideshow.each do |s|%>
+	 		<li>
+	 			<%= image_tag s.slide.url(:diapo) %>
+	 			<a href="#" class="orbit-caption"><%= s.caption.html_safe %></a>
+	 		</li>
+	  <% end %>
+</ul>
+
+</div>
+
+<div class="panel"><%= @accroche_home.content %></div>

@@ -1,0 +1,59 @@
+<div class="sidebar">
+
+	<div class="soutien button">
+		JE FAIS UN DON
+	</div>
+
+	<ul>
+	  <% unless @sidebar_menu_items.nil? %>
+			<% @sidebar_menu_items.each_with_index do |t,i|%>
+				<% if t.articles.count == 0 %>
+					<li class="title"><i class="fi-play"></i><%= t.name.upcase %></li>
+					<hr>
+				<% elsif t.articles.count == 1 %>
+				 	<li>
+			 			<%= link_to  article_path(t.articles.first.id) do %>
+							<i class="fi-play"></i><%= t.name.upcase %>
+			 			<% end %>
+			 		</li><hr>
+				<% else %>	
+			 		<li>
+			 			<dl class="accordion" data-accordion>
+						  <dd>
+			 				<a href="#accordeon<%= i %>" class="accordeon<%= i %>"><i class="fi-play"></i><%= t.name.upcase %></a>
+						    <div id="accordeon<%= i %>" class="content contenu_accordeon">
+						      <% t.articles.each do |a|%>
+						      	<div class="row">
+						      		<div class="small-1 columns bullet_acc">
+						      			<%= image_tag 'bullet.png' %>
+						      		</div>
+						      		<div class="small-11 columns acc_content">
+								      	<%= link_to article_path(id: a.id, category: "accordeon#{i}") do %>
+								      	<%= a.name %>
+								      	<% end%>
+								    </div>
+							    
+							    </div>	
+						      <% end %>
+						    </div>
+						  </dd>
+						</dl>	 		
+			 		</li><hr>
+				<% end %>
+	  	<% end %>
+	  <% end %>
+	</ul>
+	<ul>
+		<% @news.reverse_each do |a| %>		
+			<li><%= link_to a.name.upcase, article_path(a), class:"button news" %></li>
+		<% end %>
+		<li><%= link_to 'TOUTES LES ACTUALITES', index_news_path, class:"button news" %></li>
+	</ul>
+	
+	<ul class="inline-list social">
+	 	<li ><%= image_tag 'facebook.png' %></li>
+	 	<li ><%= image_tag 'twitter.png' %></li>
+	 	<li ><%= image_tag 'linkedin.png' %></li>
+	 	<li ><%= image_tag 'youtube.png' %></li>
+	</ul>
+</div>

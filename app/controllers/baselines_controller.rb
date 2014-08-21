@@ -1,0 +1,2 @@
+class BaselinesController < ApplicationController
+end

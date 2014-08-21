@@ -1,0 +1,7 @@
+<ul class="inline-list footer">
+  <% unless @footer_menu_items.nil? %>
+	  <% @footer_menu_items.each do |t|%>
+	 		<li><%= link_to t.name.upcase, article_path(t.articles.last) %></li>
+	  <% end %>
+  <% end %>
+</ul>

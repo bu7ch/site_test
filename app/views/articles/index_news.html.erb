@@ -1,0 +1,19 @@
+<div class="format_news index_news">
+	<h1 class='center-list'>Toute les actualités</h1>
+	 
+	<% @index_news.each do |a|%>
+		<%= link_to article_path(a.id) do %>
+		<div class="row">
+			<div class="small-12 large-12 columns imageblog"><%= image_tag a.image.url(:image_article) %></div>
+		</div>
+		<div class="row">
+			<div class="small-12 large-12 columns">
+				<h1><%= a.name %></h1></br>
+				<p><%= a.content.html_safe %></p>
+			</div>
+		</div>
+		<% end %>
+ 		<hr>
+	<% end %>
+</div>
+

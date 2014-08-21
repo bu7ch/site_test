@@ -1,0 +1,33 @@
+<div class="format_news index_news">
+
+	<div class="row">
+		<div class="small-6 large-6 columns"><h1 class="resultat">Résultat de la recherche</h1>
+	</div>
+		<div class="small-6 large-6 columns"><h3 class="right"> <%= @articles.count %> pages trouvées</h3></div>
+	</div>
+
+	<% if @articles.count != 0 %>
+	 <% @articles.each do |a|%>
+		<%= link_to article_path(a.id) do %>
+			<div class="row">
+				<div class="small-12 large-12 columns imageblog"><%= image_tag a.image.url(:image_blog) %></div>
+			</div>
+			<div class="row">
+				<div class="small-12 large-12 columns">
+					<h1><%= a.name %></h1>
+				</div>
+			</div>
+		<% end %>
+			<hr>
+	 <% end %>
+
+	<% else %>
+		<div class="row">
+			<div class="small-12 large-12 columns">
+				<p>Aucun résultat ne correspond à votre recherche.</p>
+			</div>
+		</div>
+		 
+	<% end %>
+
+</div>
